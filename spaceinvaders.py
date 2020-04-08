@@ -7,15 +7,6 @@ from Bullet import Bullet
 from Enemy import EnemyWave
 from Enemy import Enemy
 
-
-def hit (testx, testy, hitx, hity):  
-    dist = math.sqrt(math.pow(hitx-bullet.x,2)+math.pow(hity-bullet.y,2))
-    if dist <34:
-        return True
-    else:        
-        return False
-    
-
 def game_intro():
     intro = True
     
@@ -74,7 +65,7 @@ clock = pygame.time.Clock()
 
 back = pygame.image.load("images/back.jpg")
    
-enemy_list = EnemyWave(10).enemy_list
+enemy_wave = EnemyWave(10)
 
 #game_intro()  
 while runing:
@@ -95,34 +86,8 @@ while runing:
     showscore = font.render(f"High Score: {highscore}",True,(255,255,255))
     screen.blit(showscore,(290,fonty))              
 
-    for enemy in enemy_list:
-        if enemy.y >= 360:        
-            showscore = font.render(f"Game over",True,(255,255,255))
-            screen.blit(showscore,(250,250))
-            if score > int(highscore) :
-                highscore = score
-                f = open("highscore.txt","w+")
-                f.write(str(highscore))
-                f.close()
-        screen.blit(enemy.img, (int(enemy.x), int(enemy.y)))
-        enemy.x += enemy.vel              
-        enemy.y += .05
-        if enemy.x > 440:
-           enemy.vel = -(random.uniform(1,1))
-        elif enemy.x < 0:
-           enemy.vel = (random.uniform(1,1))    
-        if bullet.shoot:
-            test = hit(bullet.x,bullet.y,enemy.x,enemy.y)  
-            if test:
-                bullet.shoot = False
-                contact = mixer.Sound("sounds/explosion.wav")
-                contact.set_volume(.5)
-                contact.play()
-                score += 1
-                enemy.x = random.randint(0,500)
-                enemy.y = random.randint(10,250)    
-            bullet.move(screen)
-       
-   
+    result = enemy_wave.check(screen, bullet)
+    score += result
+
     pygame.display.update()
 pygame.quit()
