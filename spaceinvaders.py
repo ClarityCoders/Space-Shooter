@@ -47,28 +47,24 @@ def game_intro():
         
         
         pygame.display.update() 
-     
-        
+
+
 pygame.init()
 
 highscore = 0
-f=open("highscore.txt","r")
+f=open("highscore.txt", "r")
 highscore = f.readline()
 f.close()
 spaceship = Spaceship()  
 bullet = Bullet()
 score = 0
-font = pygame.font.SysFont("normalname.ttf",32)  
+font = pygame.font.SysFont("normalname.ttf", 32)  
 fontx = 10  
 fonty = 10
 
-screen=pygame.display.set_mode((500,500))
+screen = pygame.display.set_mode((500, 500))
 global runing
 runing = True
-
-width = 20
-height = 60
-vel = 10
 
 eme=["images/ufo.png","images/bigmonster.png"]
 enemy_vel =[]
@@ -83,7 +79,7 @@ for i in range(enemycount):
     enemy_vel.append(1)    
     enemy_x.append(random.randint(0,500))
     enemy_y.append(random.randint(10,250))
-    if i % 2 ==0:    
+    if i % 2 == 0:    
         player2.append(pygame.image.load(eme[0]))
     else:
         player2.append(pygame.image.load(eme[1]))
@@ -136,12 +132,7 @@ while runing:
                 score += 1
                 enemy_x[i] = random.randint(0,500)
                 enemy_y[i] = random.randint(10,250)    
-                bullet.y = 400
-            screen.blit(bullet.img,(bullet.x+20,bullet.y - 20))
-            bullet.y -= .1
-            if bullet.y < 0 :
-                bullet.shoot = False
-                bullet.y = 400
+            bullet.move(screen)
        
    
     pygame.display.update()
