@@ -1,12 +1,18 @@
 import pygame
-from pygame import mixer
+import random
+
+class EnemyWave():
+    def __init__(self, count):        
+        self.enemy_list = []
+        for i in range(count):
+            self.enemy_list.append(Enemy())
 
 class Enemy():
 
-    def __init__(self):        
-        self.enemy_vel = []
-        self.enemy_x = []
-        self.enemy_y = []
-        self.queue= []
-        self.enemycount = 10
-        self.img = ["images/ufo.png", "images/bigmonster.png"]
+    img_list = ["images/ufo.png", "images/bigmonster.png"]
+    
+    def __init__(self):
+        self.vel = 1
+        self.x = random.randint(0,500)
+        self.y = random.randint(10,250)
+        self.img = Enemy.img_list[0]

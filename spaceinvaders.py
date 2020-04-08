@@ -3,7 +3,9 @@ import random
 import math
 from pygame import mixer
 from Spaceship import Spaceship
-from Bullet import Bullet  
+from Bullet import Bullet
+from Enemy import EnemyWave
+from Enemy import Enemy
 
 
 def hit (testx, testy, hitx, hity):  
@@ -85,7 +87,10 @@ for i in range(enemycount):
         player2.append(pygame.image.load(eme[1]))
     back=pygame.image.load("images/back.jpg")
    
-game_intro()  
+
+print(EnemyWave(5).enemy_list[0].enemy_x)
+
+#game_intro()  
 while runing:
     dt = clock.tick(60)
     speed = 1 / float(dt)
