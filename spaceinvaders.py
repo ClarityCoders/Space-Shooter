@@ -2,9 +2,9 @@ import pygame
 import random
 import math
 from pygame import mixer
-
 from Spaceship import Spaceship
 from Bullet import Bullet  
+
 
 def hit (testx,testy,hitx,hity):  
     dist = math.sqrt(math.pow(hitx-bullet.x,2)+math.pow(hity-bullet.y,2))
@@ -47,9 +47,8 @@ def game_intro():
         
         
         pygame.display.update() 
+     
         
-pygame.mixer.pre_init(44100, -16, 2, 2048)
-pygame.mixer.init()
 pygame.init()
 
 highscore = 0
@@ -63,13 +62,10 @@ font = pygame.font.SysFont("normalname.ttf",32)
 fontx = 10  
 fonty = 10
 
-show = False
 screen=pygame.display.set_mode((500,500))
 global runing
 runing = True
 
-testx = 250
-testy = 400
 width = 20
 height = 60
 vel = 10
@@ -99,19 +95,13 @@ while runing:
     speed = 1 / float(dt)
     screen.fill((0,0,0))
     screen.blit(back,(0,0))
-
+    
     spaceship.move(screen) 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             runing=False
         spaceship.check_move(event, speed)
-        if event.type==pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                if not show:
-                    bullet.sound()
-                    testx=spaceship.x
-                    bullet.y=spaceship.y
-                    show = True
+        bullet.check_move(event, spaceship.x, spaceship.y)
                    
     showscore = font.render(f"Score: {score}",True,(255,255,255))
     screen.blit(showscore,(fontx,fonty))              
@@ -136,10 +126,10 @@ while runing:
            enemy_vel[i] = -(random.uniform(1,1))
         elif enemy_x[i] < 0:
            enemy_vel[i] =(random.uniform(1,1))    
-        if show:
+        if bullet.shoot:
             test = hit(bullet.x,bullet.y,enemy_x[i],enemy_y[i])  
             if test:
-                show = False
+                bullet.shoot = False
                 contact = mixer.Sound("sounds/explosion.wav")
                 contact.set_volume(.5)
                 contact.play()
@@ -147,10 +137,10 @@ while runing:
                 enemy_x[i] = random.randint(0,500)
                 enemy_y[i] = random.randint(10,250)    
                 bullet.y = 400
-            screen.blit(bullet.img,(testx+20,bullet.y - 20))
+            screen.blit(bullet.img,(bullet.x+20,bullet.y - 20))
             bullet.y -= .1
-            if bullet.y <0 :
-                show = False
+            if bullet.y < 0 :
+                bullet.shoot = False
                 bullet.y = 400
        
    

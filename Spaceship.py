@@ -2,7 +2,7 @@ import pygame
 
 class Spaceship ():
     def __init__(self):
-        self.vel = 10
+        self.vel = 25
         self.x = 250
         self.y = 400
         self.move_x = 0
@@ -26,6 +26,11 @@ class Spaceship ():
                 self.move_y = 0
 
     def move(self, screen):
-        self.x += self.move_x
-        self.y += self.move_y
+        width_bound = 500 - self.img.get_rect().size[0]
+        height_bound = 500 - self.img.get_rect().size[1]
+
+        if self.x + self.move_x < width_bound and self.x + self.move_x > 0:
+            self.x += self.move_x
+        if self.y + self.move_y < height_bound and self.y + self.move_y > 0:
+            self.y += self.move_y
         screen.blit(self.img,(int(self.x),int(self.y)))
