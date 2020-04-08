@@ -17,17 +17,9 @@ class EnemyWave():
         for i in range(count):
             self.enemy_list.append(Enemy())
 
-    def check(self, screen, bullet):
+    def check(self, screen, bullet, spaceship):
         score_tracker = 0
         for enemy in self.enemy_list:
-            """ if enemy.y >= 360:        
-                showscore = font.render(f"Game over",True,(255,255,255))
-                screen.blit(showscore,(250,250))
-                if score > int(highscore) :
-                    highscore = score
-                    f = open("highscore.txt","w+")
-                    f.write(str(highscore))
-                    f.close() """
             screen.blit(enemy.img, (int(enemy.x), int(enemy.y)))
             enemy.x += enemy.vel              
             enemy.y += .05
@@ -46,6 +38,8 @@ class EnemyWave():
                     enemy.x = random.randint(0, 500)
                     enemy.y = random.randint(10,250)    
                 bullet.move(screen)
+            if hit(spaceship.x, spaceship.y,enemy.x,enemy.y) or enemy.y > 350:
+                return -1
         return score_tracker
 
 

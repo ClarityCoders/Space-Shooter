@@ -1,20 +1,15 @@
 import pygame
-import random
-import math
-from pygame import mixer
 from Spaceship import Spaceship
 from Bullet import Bullet
 from Enemy import EnemyWave
 from Enemy import Enemy
 
-def game_intro():
+def game_lose():
     intro = True
     
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-              global runing
-              runing = False
               intro = False
           
         screen.fill((255, 255, 255))
@@ -58,36 +53,41 @@ fontx = 10
 fonty = 10
 
 screen = pygame.display.set_mode((500, 500))
-global runing
-runing = True
+running = True
 
 clock = pygame.time.Clock()
 
 back = pygame.image.load("images/back.jpg")
    
 enemy_wave = EnemyWave(10)
-
-#game_intro()  
-while runing:
+ 
+while running:
     dt = clock.tick(60)
     speed = 1 / float(dt)
     screen.fill((0,0,0))
     screen.blit(back,(0,0))
     
-    spaceship.move(screen) 
+    spaceship.move(screen)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            runing=False
+            running=False
         spaceship.check_move(event, speed)
         bullet.check_move(event, spaceship.x, spaceship.y)
                    
     showscore = font.render(f"Score: {score}",True,(255,255,255))
     screen.blit(showscore,(fontx,fonty))              
-    showscore = font.render(f"High Score: {highscore}",True,(255,255,255))
-    screen.blit(showscore,(290,fonty))              
+    showscore = font.render(f"High Score: {highscore}", True, (255,255,255))
+    screen.blit(showscore,(290, fonty))
 
-    result = enemy_wave.check(screen, bullet)
-    score += result
+    result = enemy_wave.check(screen, bullet, spaceship)
+    if result >= 0:
+        score += result
+    else:
+        running = False
+        if score > int(highscore):
+            f=open("highscore.txt", "w")
+            f.write(str(score))
+            f.close()
 
     pygame.display.update()
 pygame.quit()
