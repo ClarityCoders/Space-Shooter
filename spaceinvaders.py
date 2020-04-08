@@ -2,7 +2,6 @@ import pygame
 from Spaceship import Spaceship
 from Bullet import Bullet
 from Enemy import EnemyWave
-from Enemy import Enemy
 
 def game_lose():
     intro = True
