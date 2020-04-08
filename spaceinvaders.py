@@ -57,8 +57,10 @@ highscore = 0
 f=open("highscore.txt", "r")
 highscore = f.readline()
 f.close()
+
 spaceship = Spaceship()  
 bullet = Bullet()
+
 score = 0
 font = pygame.font.SysFont("normalname.ttf", 32)  
 fontx = 10  
@@ -68,27 +70,11 @@ screen = pygame.display.set_mode((500, 500))
 global runing
 runing = True
 
-eme=["images/ufo.png", "images/bigmonster.png"]
-enemy_vel =[]
-enemy_x =[]
-enemy_y =[]
-player2=[]
-enemycount=10
-
 clock = pygame.time.Clock()
 
-for i in range(enemycount):
-    enemy_vel.append(1)    
-    enemy_x.append(random.randint(0,500))
-    enemy_y.append(random.randint(10,250))
-    if i % 2 == 0:    
-        player2.append(pygame.image.load(eme[0]))
-    else:
-        player2.append(pygame.image.load(eme[1]))
-    back=pygame.image.load("images/back.jpg")
+back = pygame.image.load("images/back.jpg")
    
-
-print(EnemyWave(5).enemy_list[0].enemy_x)
+enemy_list = EnemyWave(10).enemy_list
 
 #game_intro()  
 while runing:
@@ -109,8 +95,8 @@ while runing:
     showscore = font.render(f"High Score: {highscore}",True,(255,255,255))
     screen.blit(showscore,(290,fonty))              
 
-    for i in range(enemycount):
-        if enemy_y[i]>=460:        
+    for enemy in enemy_list:
+        if enemy.y >= 360:        
             showscore = font.render(f"Game over",True,(255,255,255))
             screen.blit(showscore,(250,250))
             if score > int(highscore) :
@@ -118,25 +104,23 @@ while runing:
                 f = open("highscore.txt","w+")
                 f.write(str(highscore))
                 f.close()
-            for j in range(enemycount):
-                enemy_y[j] = 1000
-        screen.blit(player2[i],(int(enemy_x[i]),int(enemy_y[i])))        
-        enemy_x[i] += enemy_vel[i]              
-        enemy_y[i] += .05
-        if enemy_x[i] > 440:
-           enemy_vel[i] = -(random.uniform(1,1))
-        elif enemy_x[i] < 0:
-           enemy_vel[i] =(random.uniform(1,1))    
+        screen.blit(enemy.img, (int(enemy.x), int(enemy.y)))
+        enemy.x += enemy.vel              
+        enemy.y += .05
+        if enemy.x > 440:
+           enemy.vel = -(random.uniform(1,1))
+        elif enemy.x < 0:
+           enemy.vel = (random.uniform(1,1))    
         if bullet.shoot:
-            test = hit(bullet.x,bullet.y,enemy_x[i],enemy_y[i])  
+            test = hit(bullet.x,bullet.y,enemy.x,enemy.y)  
             if test:
                 bullet.shoot = False
                 contact = mixer.Sound("sounds/explosion.wav")
                 contact.set_volume(.5)
                 contact.play()
                 score += 1
-                enemy_x[i] = random.randint(0,500)
-                enemy_y[i] = random.randint(10,250)    
+                enemy.x = random.randint(0,500)
+                enemy.y = random.randint(10,250)    
             bullet.move(screen)
        
    

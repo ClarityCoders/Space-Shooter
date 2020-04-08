@@ -15,4 +15,4 @@ class Enemy():
         self.vel = 1
         self.x = random.randint(0,500)
         self.y = random.randint(10,250)
-        self.img = Enemy.img_list[0]
+        self.img = pygame.image.load(Enemy.img_list[0])
