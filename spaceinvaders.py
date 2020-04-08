@@ -6,7 +6,7 @@ from Spaceship import Spaceship
 from Bullet import Bullet  
 
 
-def hit (testx,testy,hitx,hity):  
+def hit (testx, testy, hitx, hity):  
     dist = math.sqrt(math.pow(hitx-bullet.x,2)+math.pow(hity-bullet.y,2))
     if dist <34:
         return True
@@ -24,7 +24,7 @@ def game_intro():
               runing = False
               intro = False
           
-        screen.fill((255,255,255))
+        screen.fill((255, 255, 255))
         font = pygame.font.SysFont("normalname.ttf",32) 
         message = font.render(f"Our Game",True,(0,0,0))
         screen.blit(message,(10,10))
@@ -66,7 +66,7 @@ screen = pygame.display.set_mode((500, 500))
 global runing
 runing = True
 
-eme=["images/ufo.png","images/bigmonster.png"]
+eme=["images/ufo.png", "images/bigmonster.png"]
 enemy_vel =[]
 enemy_x =[]
 enemy_y =[]

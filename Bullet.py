@@ -1,7 +1,7 @@
 import pygame
 from pygame import mixer
 
-class Bullet ():
+class Bullet():
 
     def __init__(self):        
         self.x = 250                

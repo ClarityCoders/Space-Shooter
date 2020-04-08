@@ -1,6 +1,6 @@
 import pygame
 
-class Spaceship ():
+class Spaceship():
     def __init__(self):
         self.vel = 25
         self.x = 250
