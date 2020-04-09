@@ -42,19 +42,25 @@ class EnemyWave():
 
 
 class Enemy():
-    img_list = [pygame.image.load("images/ufo.png"), pygame.image.load("images/bigmonster.png")]
+    img_list = [pygame.image.load("images/ufo.png"), 
+                pygame.image.load("images/ufo20.png"),
+                pygame.image.load("images/ufo40.png"),
+                pygame.image.load("images/ufo60.png"),
+                pygame.image.load("images/ufo80.png"),
+                pygame.image.load("images/ufo100.png")]
     
     def __init__(self, enemy_list):
         self.velx = 10
         self.vely = 1
         self.img = Enemy.img_list[0]
         self.new_location(enemy_list)
+        self.image_index = 0
 
     def new_location(self, enemy_list):
         new_spot = True
         while new_spot:
             new_spot = False
-            holder_x = random.randint(1, 500 - self.img.get_rect().size[0])
+            holder_x = random.randint(self.img.get_rect().size[0], 500 - self.img.get_rect().size[0])
             holder_y = random.randint(10, 250)
             for enemy in enemy_list:
                 new_spot = hit(holder_x, holder_y, enemy.x, enemy.y)
@@ -68,3 +74,6 @@ class Enemy():
             self.vely *= 1.5
         else:
             self.velx *= 1.5
+        if self.image_index < len(self.img_list) - 1:
+            self.image_index += 1
+            self.img = self.img_list[self.image_index]
