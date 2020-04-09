@@ -1,7 +1,7 @@
+import math
 import pygame
 import random
 from pygame import mixer
-import math
 
 def hit (ojb1x, obj1y, obj2x, obj2y):  
     dist = math.sqrt(math.pow(ojb1x-obj2x, 2)+math.pow(obj1y-obj2y, 2))
@@ -42,19 +42,19 @@ class EnemyWave():
 
 
 class Enemy():
-    img_list = ["images/ufo.png", "images/bigmonster.png"]
+    img_list = [pygame.image.load("images/ufo.png"), pygame.image.load("images/bigmonster.png")]
     
     def __init__(self, enemy_list):
         self.velx = 10
         self.vely = 1
-        self.img = pygame.image.load(Enemy.img_list[0])
+        self.img = Enemy.img_list[0]
         self.new_location(enemy_list)
 
     def new_location(self, enemy_list):
         new_spot = True
         while new_spot:
             new_spot = False
-            holder_x = random.randint(0, 500 - self.img.get_rect().size[0])
+            holder_x = random.randint(1, 500 - self.img.get_rect().size[0])
             holder_y = random.randint(10, 250)
             for enemy in enemy_list:
                 new_spot = hit(holder_x, holder_y, enemy.x, enemy.y)

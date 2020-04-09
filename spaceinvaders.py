@@ -74,9 +74,9 @@ while running:
         spaceship.check_move(event, speed)
         bullet.check_move(event, spaceship.x, spaceship.y)
                    
-    showscore = font.render(f"Score: {score}",True,(255,255,255))
+    showscore = font.render(f"Score: {score}", True, (255, 255, 255))
     screen.blit(showscore,(fontx,fonty))              
-    showscore = font.render(f"High Score: {highscore}", True, (255,255,255))
+    showscore = font.render(f"High Score: {highscore}", True, (255, 255, 255))
     screen.blit(showscore,(290, fonty))
 
     result = enemy_wave.check(screen, bullet, spaceship, speed)
