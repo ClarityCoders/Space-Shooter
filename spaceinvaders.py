@@ -63,6 +63,7 @@ enemy_wave = EnemyWave(10)
 while running:
     dt = clock.tick(60)
     speed = 1 / float(dt)
+
     screen.fill((0,0,0))
     screen.blit(back,(0,0))
     
@@ -78,7 +79,7 @@ while running:
     showscore = font.render(f"High Score: {highscore}", True, (255,255,255))
     screen.blit(showscore,(290, fonty))
 
-    result = enemy_wave.check(screen, bullet, spaceship)
+    result = enemy_wave.check(screen, bullet, spaceship, speed)
     if result >= 0:
         score += result
     else:
