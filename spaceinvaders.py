@@ -59,7 +59,7 @@ clock = pygame.time.Clock()
 back = pygame.image.load("images/back.jpg")
    
 enemy_wave = EnemyWave(10)
- 
+print([1, 3, 4, 5, 6, 7, 8]-3])
 while running:
     dt = clock.tick(60)
     speed = 1 / float(dt)
