@@ -7,7 +7,7 @@ class Bullet():
         self.x = 250                
         self.y = -100
         self.shoot = False
-        self.img = pygame.image.load("images/bullet.png")
+        self.img = pygame.image.load("images/laser.png")
         self.laser = mixer.Sound("sounds/laser.wav")
 
     def sound(self):
@@ -27,5 +27,5 @@ class Bullet():
                 self.shoot = False
                 self.y = -100
         else:
-            self.y -= 1
+            self.y -= .5
             screen.blit(self.img,(self.x, self.y))
