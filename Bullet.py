@@ -8,10 +8,12 @@ class Bullet():
         self.y = -100
         self.shoot = False
         self.img = pygame.image.load("images/laser.png")
+        self.image_mask = pygame.mask.from_surface(self.img)
         self.laser = mixer.Sound("sounds/laser.wav")
 
     def sound(self):
-        self.laser.play()
+        pass
+        # self.laser.play()
 
     def check_move(self, event, ship_x, ship_y):
         if event.type == pygame.KEYDOWN:
@@ -27,5 +29,5 @@ class Bullet():
                 self.shoot = False
                 self.y = -100
         else:
-            self.y -= .5
+            self.y -= .75
             screen.blit(self.img,(self.x, self.y))

@@ -8,6 +8,7 @@ class Spaceship():
         self.move_x = 0
         self.move_y = 0
         self.img = pygame.image.load("images/spaceship.png")
+        self.image_mask = pygame.mask.from_surface(self.img)
 
     def check_move(self, event, speed):
         if event.type == pygame.KEYDOWN:
