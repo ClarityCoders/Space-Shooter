@@ -5,5 +5,4 @@ This is a little Pygame sample program I created with one of my students. I am g
 _For more examples and usage, please refer to our discord for help! https://discord.gg/7DTCpVB
 
 ## Development setup
-
-### To run simply run SpaceGame_Play.py
+To run simply run SpaceGame_Play.py
