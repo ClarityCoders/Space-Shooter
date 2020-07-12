@@ -1,10 +1,11 @@
 import pygame
 from pygame import mixer
 
+
 class Bullet():
 
-    def __init__(self):        
-        self.x = 250                
+    def __init__(self):
+        self.x = 250
         self.y = -100
         self.shoot = False
         self.img = pygame.image.load("images/laser.png")
@@ -25,9 +26,9 @@ class Bullet():
                     self.shoot = True
 
     def move(self, screen):
-        if self.y < 0 :
-                self.shoot = False
-                self.y = -100
+        if self.y < 0:
+            self.shoot = False
+            self.y = -100
         else:
-            self.y -= .75
-            screen.blit(self.img,(self.x, self.y))
+            self.y -= 1.5
+            screen.blit(self.img, (self.x, self.y))

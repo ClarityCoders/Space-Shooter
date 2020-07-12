@@ -8,14 +8,16 @@ SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
 BACKGROUND = back = pygame.image.load("images/back.jpg")
 
+
 def draw_screen(screen, score, highscore):
-    screen.fill((0,0,0))
-    screen.blit(BACKGROUND,(0,0))
+    screen.fill((0, 0, 0))
+    screen.blit(BACKGROUND, (0, 0))
     font = pygame.font.SysFont("comicsans", 40)
     showscore = font.render(f"Score: {score}", True, (255, 255, 255))
-    screen.blit(showscore,(SCREEN_WIDTH - 10 - showscore.get_width(), 10))              
+    screen.blit(showscore, (SCREEN_WIDTH - 10 - showscore.get_width(), 10))              
     showscore = font.render(f"High Score: {highscore}", True, (255, 255, 255))
-    screen.blit(showscore,(10, 10))
+    screen.blit(showscore, (10, 10))
+
 
 def main():
     # create our screen
@@ -23,23 +25,19 @@ def main():
 
     # Check for a highscore file if not set to 0
     try:
-        f=open("highscore.txt", "r")
+        f = open("highscore.txt", "r")
         highscore = int(f.readline())
         f.close()
     except:
         highscore = 0
 
-    
-
-    spaceship = Spaceship()  
+    spaceship = Spaceship()
     bullet = Bullet()
 
     score = 0
     running = True
 
     clock = pygame.time.Clock()
-
-    
     enemy_wave = EnemyWave(5, spaceship)
     while running:
 
@@ -51,7 +49,7 @@ def main():
         spaceship.move(screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running=False
+                running = False
             spaceship.check_move(event, speed)
             bullet.check_move(event, spaceship.x, spaceship.y)
 
@@ -61,12 +59,13 @@ def main():
         else:
             running = False
             if score > int(highscore):
-                f=open("highscore.txt", "w")
+                f = open("highscore.txt", "w")
                 f.write(str(score))
                 f.close()
 
         pygame.display.update()
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()
