@@ -47,7 +47,8 @@ class EnemyWave():
             enemy.y += enemy.vely
             if enemy.y > 500:
                 enemy.y = 0
-                enemy.velx = int(enemy.velx * 1.25)
+                enemy.velx += .25
+                enemy.vely += .25
             if bullet.shoot:
                 if hit_pixel(bullet, enemy):
                     bullet.shoot = False
