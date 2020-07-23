@@ -9,7 +9,7 @@ SCREEN_HEIGHT = 500
 BACKGROUND = back = pygame.image.load("images/back.jpg")
 
 
-def draw_screen(screen, score, highscore):
+def draw_screen(screen, score, highscore, bullet, spaceship):
     screen.fill((0, 0, 0))
     screen.blit(BACKGROUND, (0, 0))
     font = pygame.font.SysFont("comicsans", 40)
@@ -17,6 +17,8 @@ def draw_screen(screen, score, highscore):
     screen.blit(showscore, (SCREEN_WIDTH - 10 - showscore.get_width(), 10))              
     showscore = font.render(f"High Score: {highscore}", True, (255, 255, 255))
     screen.blit(showscore, (10, 10))
+    bullet.show(screen)
+    spaceship.show(screen)
 
 
 def main():
@@ -40,20 +42,17 @@ def main():
     clock = pygame.time.Clock()
     enemy_wave = EnemyWave(5, spaceship)
     while running:
-
-        draw_screen(screen, score, highscore)
-
-        dt = clock.tick(60)
-        speed = 1 / float(dt)
+        clock.tick(30)
+        draw_screen(screen, score, highscore, bullet, spaceship)
         
         spaceship.move(screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            spaceship.check_move(event, speed)
+            spaceship.check_move(event)
             bullet.check_move(event, spaceship.x, spaceship.y)
 
-        result = enemy_wave.check(screen, bullet, spaceship, speed)
+        result = enemy_wave.check(screen, bullet, spaceship)
         if result >= 0:
             score += result
         else:

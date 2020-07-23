@@ -30,5 +30,9 @@ class Bullet():
             self.shoot = False
             self.y = -100
         else:
-            self.y -= 1.5
+            self.y -= 3
+            #screen.blit(self.img, (self.x, self.y))
+
+    def show(self, screen):
+        if self.shoot:
             screen.blit(self.img, (self.x, self.y))

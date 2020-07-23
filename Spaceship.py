@@ -3,7 +3,7 @@ import pygame
 
 class Spaceship():
     def __init__(self):
-        self.vel = 40
+        self.vel = 9
         self.x = 250
         self.y = 400
         self.move_x = 0
@@ -11,16 +11,16 @@ class Spaceship():
         self.img = pygame.image.load("images/spaceship.png")
         self.image_mask = pygame.mask.from_surface(self.img)
 
-    def check_move(self, event, speed):
+    def check_move(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                self.move_x -= self.vel * speed
+                self.move_x -= self.vel
             if event.key == pygame.K_RIGHT:
-                self.move_x += self.vel * speed
+                self.move_x += self.vel
             if event.key == pygame.K_UP:
-                self.move_y -= self.vel * speed
+                self.move_y -= self.vel
             if event.key == pygame.K_DOWN:
-                self.move_y += self.vel * speed
+                self.move_y += self.vel
         if event.type == pygame.KEYUP:
             if event.key==pygame.K_LEFT or event.key==pygame.K_RIGHT:
                 self.move_x = 0
@@ -35,4 +35,6 @@ class Spaceship():
             self.x += self.move_x
         if self.y + self.move_y < height_bound and self.y + self.move_y > 0:
             self.y += self.move_y
+    
+    def show(self, screen):
         screen.blit(self.img, (int(self.x),int(self.y)))

@@ -28,7 +28,7 @@ class EnemyWave():
         for i in range(count):
             self.enemy_list.append(Enemy(self.enemy_list, spaceship))
 
-    def check(self, screen, bullet, spaceship, speed):
+    def check(self, screen, bullet, spaceship):
         score_tracker = 0
         for enemy in self.enemy_list:
             screen.blit(enemy.img, (int(enemy.x), int(enemy.y)))
@@ -37,14 +37,14 @@ class EnemyWave():
             if enemy.x > 500 - enemy.img.get_rect().size[0] or enemy.x <= 0:
                 # Flip direction
                 enemy.velx *= -1  
-                enemy.x += enemy.velx * speed
+                enemy.x += enemy.velx
                 if enemy.x > 500:
                     enemy.x = 500
                 elif enemy.x <= 0:
                     enemy.x = 0
 
-            enemy.x += enemy.velx * speed
-            enemy.y += enemy.vely * speed
+            enemy.x += enemy.velx
+            enemy.y += enemy.vely
             if enemy.y > 500:
                 enemy.y = 0
                 enemy.velx = int(enemy.velx * 1.25)
@@ -75,8 +75,8 @@ class Enemy():
                 pygame.image.load("images/ufo100.png")]
     
     def __init__(self, enemy_list, spaceship):
-        self.velx = 20
-        self.vely = random.randint(5, 20)
+        self.velx = random.randint(0,2)
+        self.vely = .5
         self.img = Enemy.img_list[0]
         self.image_index = 0
         self.image_mask = pygame.mask.from_surface(self.img)
@@ -102,12 +102,12 @@ class Enemy():
                 break
 
     def speed_up(self):
-        if abs(self.velx) > 30:
-            self.vely += 6
-            self.velx += random.randint(1, 3)
+        if abs(self.velx) > 25:
+            self.vely += .5
+            self.velx += random.randint(0, 1)
         else:
-            self.velx += 5
-            self.vely += random.randint(1, 3)
+            self.velx += random.randint(1, 2)
+            self.vely += random.randint(0, 1)
         if self.image_index < len(self.img_list) - 1:
             self.image_index += 1
             self.img = self.img_list[self.image_index]
